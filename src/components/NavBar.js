@@ -61,11 +61,11 @@ const NavBar = () => {
                 <NavItem>
                   <NavLink
                     tag={RouterNavLink}
-                    to="/external-api"
+                    to="/cart"
                     exact
                     activeClassName="router-link-exact-active"
                   >
-                    External API
+                    Panier
                   </NavLink>
                 </NavItem>
               )}

@@ -1,15 +1,16 @@
-import React, {useEffect, useState} from "react";
-import { Router, Route, Switch } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import { Container } from "reactstrap";
+import './App.css';
 
+import ProductList from './components/ProductList';
 import Loading from "./components/Loading";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
-import Home from "./views/Home";
-import Profile from "./views/Profile";
-import ExternalApi from "./views/ExternalApi";
 import { useAuth0 } from "@auth0/auth0-react";
-import history from "./utils/history";
+import { BrowserRouter } from "react-router-dom/cjs/react-router-dom.min";
+import RouterDom from "./components/Router"
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Cart from "./components/Cart";
 
 // styles
 import "./App.css";
@@ -19,7 +20,7 @@ import initFontAwesome from "./utils/initFontAwesome";
 initFontAwesome();
 
 const App = () => {
-  const {getAccessTokenSilently, getIdTokenClaims, isAuthenticated, isLoading, user} = useAuth0();
+  const { getAccessTokenSilently, getIdTokenClaims, isAuthenticated, isLoading, user } = useAuth0();
   const [accessToken, setAccessToken] = useState();
   const [idTokenClaims, setIdTokenClaims] = useState();
 
@@ -33,19 +34,18 @@ const App = () => {
   }
 
   return (
-    <Router history={history}>
-      <div id="app" className="d-flex flex-column h-100">
-        <NavBar />
-        <Container className="flex-grow-1 mt-5">
-          <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/profile" component={Profile} />
-            <Route path="/external-api" component={ExternalApi} />
-          </Switch>
-        </Container>
-        <Footer />
-      </div>
-    </Router>
+    <BrowserRouter>
+        <div id="app" className="d-flex flex-column h-100">
+          <NavBar />
+          <main>
+            <Switch>
+              <Route path="/cart" component={Cart} />
+              <Route path="/" component={ProductList} exact />
+            </Switch>
+          </main>
+          <Footer />
+        </div>
+    </BrowserRouter>
   );
 };
 
